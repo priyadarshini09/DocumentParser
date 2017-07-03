@@ -1,11 +1,9 @@
 package com.stackroute.swisit.documentparser.service;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-
+import com.uttesh.exude.ExudeData;
+import com.uttesh.exude.exception.InvalidDataException;
 import org.springframework.stereotype.Service;
 
-import com.stackroute.newintentparser.exude.ExudeData;
-import com.stackroute.newintentparser.exude.exception.InvalidDataException;
 import com.stackroute.swisit.documentparser.domain.CrawlerResult;
 import com.stackroute.swisit.documentparser.domain.WordChecker;
 
