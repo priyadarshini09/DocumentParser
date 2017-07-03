@@ -37,7 +37,7 @@ public class PhraseScannerServiceImpl implements PhraseScannerService{
 
     public List<String> ngrams(int n, String str) {
         List<String> ngrams = new ArrayList<String>();
-        String[] words = str.split(" ");
+        String[] words = str.split("[$&+,:;=?@#|'<>.^*()%!-]");
         for (int i = 0; i < words.length - n + 1; i++)
             ngrams.add(concat(words, i, i+n));
         return ngrams;

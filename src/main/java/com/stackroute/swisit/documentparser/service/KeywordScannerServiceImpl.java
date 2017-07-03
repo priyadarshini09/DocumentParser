@@ -28,7 +28,7 @@ public class KeywordScannerServiceImpl implements KeywordScannerService {
             Elements elements = document.select(tag);
             for(Element element : elements){
                 String tagText = element.text();
-                stringTokenizer = new StringTokenizer(tagText," ");
+                stringTokenizer = new StringTokenizer(tagText,"[$&+,:;=?@#|'<>.^*()%!-]");
                 strings = null;
                 for(int i=0;stringTokenizer.hasMoreElements();i++){
                     strings[i] = stringTokenizer.nextElement().toString();
