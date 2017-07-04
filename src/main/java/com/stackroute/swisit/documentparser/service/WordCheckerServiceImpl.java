@@ -18,7 +18,7 @@ import java.util.Map;
  */
 @Service
 public class WordCheckerServiceImpl /*implements WordCheckerService*/{
-	public static HashMap<String,List<String>> getWordCheckerByWord(HashMap<String,String> input){
+	public HashMap<String,List<String>> getWordCheckerByWord(HashMap<String,String> input){
 		//CrawlerResult crawlerResult=new CrawlerResult();
 
 		HashMap<String,List<String>> resultMap = new HashMap<>();

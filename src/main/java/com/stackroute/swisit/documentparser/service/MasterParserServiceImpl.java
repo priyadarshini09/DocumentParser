@@ -28,7 +28,7 @@ public class MasterParserServiceImpl implements MasterParserService {
         for(CrawlerResult crawlerResult : crawlerResults) {
             document = Jsoup.parse(crawlerResult.getDocument());
         }
-        keywordScannerService.scanDocument(document);
+        HashMap<String,String[]> resultMap = keywordScannerService.scanDocument(document);
         return documentParserResults;
     }
 }
