@@ -7,6 +7,10 @@ import org.springframework.stereotype.Service;
 import com.stackroute.swisit.documentparser.domain.CrawlerResult;
 import com.stackroute.swisit.documentparser.domain.WordChecker;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.*;
+import java.util.Map;
 
 
 /**
@@ -14,41 +18,52 @@ import com.stackroute.swisit.documentparser.domain.WordChecker;
  */
 @Service
 public class WordCheckerServiceImpl /*implements WordCheckerService*/{
-	public static String getWordCheckerByWord(/*String output*/){
-		CrawlerResult crawlerResult=new CrawlerResult();
-		
-		String inputData=crawlerResult.getDocument();
-	//String inputData = "This handy tool helps you create dummy text for all your layout needs. We are gradually adding new functionality and we welcome your suggestions and feedback. Please feel free to send us any additional dummy texts.";
+	public static HashMap<String,List<String>> getWordCheckerByWord(HashMap<String,String> input){
+		//CrawlerResult crawlerResult=new CrawlerResult();
 
-		String output3 ="";
+		HashMap<String,List<String>> resultMap = new HashMap<>();
 
-		String output2 ="";
-		try {
+		//String inputData=crawlerResult.getDocument();
+	String inputData = "This handy tool helps you create dummy text for all your layout needs. We are gradually adding new functionality and we welcome your suggestions and feedback. Please feel free to send us any additional dummy texts.";
 
-			output2 = ExudeData.getInstance().filterStoppings(inputData);
-			output3 = ExudeData.getInstance().getSwearWords(inputData);
-		}  catch (InvalidDataException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		HashMap<String,String> map = new HashMap<>();
+		Iterator<Map.Entry<String, String>> entries = map.entrySet().iterator();
+		while(entries.hasNext()) {
+			Map.Entry<String, String> entry =  entries.next();
+			String key = entry.getKey();
+			 inputData = entry.getValue();
+
+			String output2 = "";
+
+			String output3 = "";
+			try {
+
+				output2 = ExudeData.getInstance().filterStoppings(inputData);
+				output3 = ExudeData.getInstance().getSwearWords(inputData);
+			} catch (InvalidDataException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			System.out.println("output : " + output2);
+			System.out.println("output : " + output3);
+
+
+			String special = output2.replaceAll("[$_&+,:;=?@#|'<>.-^*()%!]", " ");
+
+			List<String> result = new ArrayList<>();
+			for (String s1 : special.split(" ")) {
+				//System.out.println(s1);
+				result.add(s1);
+
+				System.out.println(result);
+			}
+			resultMap.put(key,result);
 		}
-
-		System.out.println("output : "+output2);
-		System.out.println("output : "+output3);
-
-
-		String special = output2.replaceAll("[$_&+,:;=?@#|'<>.-^*()%!]", " ");
-
-		for(String s1:special.split(" ")){
-			System.out.println(s1);
-			WordChecker cb=new WordChecker(s1);
-			cb.setWord(s1);
-			System.out.println(cb.getWord());}
-
-
-		return "word search valid"; 
+		return resultMap;
 
 	}
-	public static void main(String[] args) {
-		System.out.println(getWordCheckerByWord());
-	}
+//	public static void main(String[] args) {
+//		System.out.println(getWordCheckerByWord());
+//	}
 }
